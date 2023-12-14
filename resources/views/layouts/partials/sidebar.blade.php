@@ -21,15 +21,41 @@
             <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Options</span><i
                     data-feather="more-horizontal"></i>
             </li>
-            <li class="nav-item">
-                <a class="d-flex align-items-center" href="">
-                    <i data-feather="users"></i><span class="menu-title text-truncate" data-i18n="Email">User</span></a>
-            </li>
-            <li class="nav-item {{ request()->is('ekskul*') ? 'active' : '' }}">
-                <a class="d-flex align-items-center" href="{{ route('ekskul.index') }}">
-                    <i data-feather='airplay'></i><span class="menu-title text-truncate"
-                        data-i18n="Email">Ekskul</span></a>
-            </li>
+            @if (auth()->user()->hasRole('admin'))
+                <li class="nav-item {{ request()->is('user*') ? 'active' : '' }}"">
+                    <a class="d-flex align-items-center" href="{{ route('user.index') }}">
+                        <i data-feather="users"></i>
+                        <span class="menu-title text-truncate" data-i18n="Email">Pembina</span></a>
+                </li>
+                <li class="nav-item {{ request()->is('siswa*') ? 'active' : '' }}"">
+                    <a class="d-flex align-items-center" href="{{ route('siswa.index') }}">
+                        <i data-feather="users"></i>
+                        <span class="menu-title text-truncate" data-i18n="Email">Siswa</span></a>
+                </li>
+                <li class="nav-item {{ request()->is('ekskul*') ? 'active' : '' }}">
+                    <a class="d-flex align-items-center" href="{{ route('ekskul.index') }}">
+                        <i data-feather='airplay'></i><span class="menu-title text-truncate"
+                            data-i18n="Email">Ekskul</span></a>
+                </li>
+            @endif
+
+            @if (auth()->user()->hasRole('siswa'))
+                <li class="nav-item {{ request()->is('profil*') ? 'active' : '' }}">
+                    <a class="d-flex align-items-center" href="{{ route('profil.show', auth()->user()->id) }}">
+                        <i data-feather='airplay'></i><span class="menu-title text-truncate"
+                            data-i18n="Email">Profil</span></a>
+                </li>
+                <li class="nav-item {{ request()->is('siswaekskul*') ? 'active' : '' }}">
+                    <a class="d-flex align-items-center" href="{{ route('siswaekskul.index') }}">
+                        <i data-feather='airplay'></i><span class="menu-title text-truncate"
+                            data-i18n="Email">Ekskul</span></a>
+                </li>
+                <li class="nav-item {{ request()->is('absensi*') ? 'active' : '' }}">
+                    <a class="d-flex align-items-center" href="{{ route('absensi.index') }}">
+                        <i data-feather='airplay'></i><span class="menu-title text-truncate"
+                            data-i18n="Email">Absensi</span></a>
+                </li>
+            @endif
         </ul>
     </div>
 </div>

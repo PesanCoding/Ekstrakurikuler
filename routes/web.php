@@ -1,7 +1,12 @@
 <?php
 
+use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\EkskulController;
+use App\Http\Controllers\ekskulSiswaController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProfileSiswaController;
+use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,10 +31,15 @@ Route::middleware(['role:admin|siswa|pembina'])->group(function () {
 });
 Route::middleware(['role:admin'])->group(function () {
     Route::resource('ekskul', EkskulController::class);
+    Route::resource('user', UserController::class);
+    Route::resource('siswa', SiswaController::class);
 });
 Route::middleware(['role:pembina'])->group(function () {
 });
 Route::middleware(['role:siswa'])->group(function () {
+    Route::resource('profil', ProfileSiswaController::class);
+    Route::resource('siswaekskul', ekskulSiswaController::class);
+    Route::resource('absensi', AbsensiController::class);
 });
 
 Route::middleware('auth')->group(function () {

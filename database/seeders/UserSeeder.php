@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('12345678'),
         ]);
 
-        $pembina->assignRole('admin');
+        $pembina->assignRole('pembina');
 
         $siswa = User::create([
             'name' => 'siswa',
@@ -34,6 +34,6 @@ class UserSeeder extends Seeder
             'password' => bcrypt('12345678'),
         ]);
 
-        $siswa->assignRole('customer');
+        $siswa->assignRole('siswa');
     }
 }
