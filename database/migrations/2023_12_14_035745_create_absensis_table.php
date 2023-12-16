@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('absensis', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_siswa');
+            $table->unsignedBigInteger('id_ekskul');
+            $table->string('pertemuan', 25);
+            $table->string('materi', 200);
+            $table->string('jam_masuk', 20);
+            $table->string('jam_keluar', 20);
+
+            $table->foreign('id_siswa')->references('id')->on('users');
+            $table->foreign('id_ekskul')->references('id')->on('ekskuls');
             $table->timestamps();
         });
     }

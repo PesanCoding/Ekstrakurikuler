@@ -14,6 +14,10 @@ class ProfileSiswaController extends Controller
         $data = User::findOrFail($id);
         return view('siswa.show_profile', compact('data'));
     }
+    public function edit(User $user)
+    {
+        //
+    }
     public function update(UpdateProfileSiswaRequest $request, ProfileSiswa $profileSiswa)
     {
         //

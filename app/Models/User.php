@@ -45,4 +45,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Siswa::class, 'id_user', 'id');
     }
+
+    /**
+     * Get all of the pembina for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function pembina()
+    {
+        return $this->hasOne(Ekskul::class, 'penanggung_jawab', 'id');
+    }
 }

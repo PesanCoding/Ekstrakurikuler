@@ -14,7 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = User::role('pembina')->get();
+        $data = User::with('pembina')->role('pembina')->get();
         return view('admin.users.index', compact('data'));
     }
 

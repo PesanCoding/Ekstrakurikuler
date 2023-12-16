@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-md-4"></div>
                         <div class="col-md-8">
-                            <table class="table">
+                            <table class="table table-sm">
                                 <tr>
                                     <td>Nama</td>
                                     <td>: {{ $data->name }}</td>
@@ -47,6 +47,12 @@
                             </table>
                         </div>
                     </div>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ route('profil.edit', $data->id) }}" class="btn btn-sm btn-warning"><i
+                            data-feather='edit'></i> Edit
+                        Profile</a>
+                    <a href="" class="btn btn-sm btn-info"><i data-feather='lock'></i> Ubah Password</a>
                 </div>
             </div>
         </div>

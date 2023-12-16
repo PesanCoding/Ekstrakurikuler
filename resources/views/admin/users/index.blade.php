@@ -18,7 +18,7 @@
                                 <th>No</th>
                                 <th>Nama</th>
                                 <th>Role</th>
-                                <th>Aksi</th>
+                                <th>Pembina</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -30,6 +30,9 @@
                                         <div class="badge badge-glow badge-warning">
                                             Pembina
                                         </div>
+                                    </td>
+                                    <td>
+                                        {{ $item->pembina['nama_ekskul'] }}
                                     </td>
                                 </tr>
                             @endforeach

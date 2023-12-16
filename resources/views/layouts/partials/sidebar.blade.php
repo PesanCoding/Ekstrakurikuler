@@ -14,15 +14,16 @@
     <div class="shadow-bottom"></div>
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-            <li class=" nav-item"><a class="d-flex align-items-center" href="index.html"><i
-                        data-feather="home"></i><span class="menu-title text-truncate"
-                        data-i18n="Dashboards">Dashboard</span></a>
+            <li class="nav-item {{ request()->is('dashboard*') ? 'active' : '' }}">
+                <a class="d-flex align-items-center" href="{{ route('dashboard') }}"><i data-feather="home"></i><span
+                        class="menu-title text-truncate" data-i18n="Dashboards">Dashboard</span>
+                </a>
             </li>
             <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Options</span><i
                     data-feather="more-horizontal"></i>
             </li>
             @if (auth()->user()->hasRole('admin'))
-                <li class="nav-item {{ request()->is('user*') ? 'active' : '' }}"">
+                <li class="nav-item {{ request()->is('user*') ? 'active' : '' }}">
                     <a class="d-flex align-items-center" href="{{ route('user.index') }}">
                         <i data-feather="users"></i>
                         <span class="menu-title text-truncate" data-i18n="Email">Pembina</span></a>
@@ -32,7 +33,7 @@
                         <i data-feather="users"></i>
                         <span class="menu-title text-truncate" data-i18n="Email">Siswa</span></a>
                 </li>
-                <li class="nav-item {{ request()->is('ekskul*') ? 'active' : '' }}">
+                <li class="nav-item {{ request()->is('ekskul*') ? 'active' : '' }} ">
                     <a class="d-flex align-items-center" href="{{ route('ekskul.index') }}">
                         <i data-feather='airplay'></i><span class="menu-title text-truncate"
                             data-i18n="Email">Ekskul</span></a>
@@ -42,17 +43,18 @@
             @if (auth()->user()->hasRole('siswa'))
                 <li class="nav-item {{ request()->is('profil*') ? 'active' : '' }}">
                     <a class="d-flex align-items-center" href="{{ route('profil.show', auth()->user()->id) }}">
-                        <i data-feather='airplay'></i><span class="menu-title text-truncate"
+                        <i data-feather='user'></i><span class="menu-title text-truncate"
                             data-i18n="Email">Profil</span></a>
                 </li>
-                <li class="nav-item {{ request()->is('siswaekskul*') ? 'active' : '' }}">
+                <li
+                    class="nav-item {{ request()->is('siswaekskul*') ? 'active' : '' }} || {{ request()->is('pendaftaran') ? 'active' : '' }}">
                     <a class="d-flex align-items-center" href="{{ route('siswaekskul.index') }}">
-                        <i data-feather='airplay'></i><span class="menu-title text-truncate"
+                        <i data-feather='dribbble'></i><span class="menu-title text-truncate"
                             data-i18n="Email">Ekskul</span></a>
                 </li>
                 <li class="nav-item {{ request()->is('absensi*') ? 'active' : '' }}">
                     <a class="d-flex align-items-center" href="{{ route('absensi.index') }}">
-                        <i data-feather='airplay'></i><span class="menu-title text-truncate"
+                        <i data-feather='edit'></i><span class="menu-title text-truncate"
                             data-i18n="Email">Absensi</span></a>
                 </li>
             @endif

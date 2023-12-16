@@ -3,6 +3,7 @@
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\EkskulController;
 use App\Http\Controllers\ekskulSiswaController;
+use App\Http\Controllers\PerndaftranController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfileSiswaController;
 use App\Http\Controllers\SiswaController;
@@ -40,6 +41,8 @@ Route::middleware(['role:siswa'])->group(function () {
     Route::resource('profil', ProfileSiswaController::class);
     Route::resource('siswaekskul', ekskulSiswaController::class);
     Route::resource('absensi', AbsensiController::class);
+    Route::get('pendaftaran', [PerndaftranController::class, 'index'])->name('pendaftran.index');
+    Route::get('pendaftaran/{id}', [PerndaftranController::class, 'show'])->name('pendaftran.show');
 });
 
 Route::middleware('auth')->group(function () {
