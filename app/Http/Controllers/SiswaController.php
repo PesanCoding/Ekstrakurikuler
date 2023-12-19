@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateSiswaRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class SiswaController extends Controller
 {
@@ -34,6 +35,9 @@ class SiswaController extends Controller
     public function store(StoreSiswaRequest $request)
     {
         $data = $request->all();
+        if ($request->hasFile('photo_profile')) {
+            $data['photo_profile'] = $request->file('photo_profile')->store('public/photo_profile');
+        }
         $user = User::create($data);
         $data['password'] = bcrypt($data['password']);
         $user->assignRole('siswa');
@@ -46,30 +50,48 @@ class SiswaController extends Controller
     public function show($id)
     {
         $siswa = User::findOrFail($id);
-        dd($siswa);
+        return view('admin.siswa.show', compact('siswa'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Siswa $siswa)
+    public function edit($id)
     {
-        //
+        $siswa = User::findOrFail($id);
+        return view('admin.siswa.edit', compact('siswa'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSiswaRequest $request, Siswa $siswa)
+    public function update(UpdateSiswaRequest $request, $id)
     {
-        //
+        $data = $request->all();
+        $siswa = User::findOrFail($id);
+        if ($request->hasFile('photo_profile')) {
+            if ($siswa->photo_profile != null && Storage::exists($siswa->photo_profile)) {
+                Storage::delete($siswa->photo_profile);
+            }
+            $data['photo_profile'] = $request->file('photo_profile')->store('public/photo_profile');
+        }
+        $siswa->fill($data);
+        $siswa->update();
+        toastr()->info('Data user berhasil diubah!');
+        return redirect()->route('siswa.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Siswa $siswa)
+    public function destroy($id)
     {
-        //
+        $data = User::findOrFail($id);
+        if ($data->photo_profile != null) {
+            Storage::delete($data->photo_profile);
+        }
+        $data->delete();
+        toastr()->success('Data Siswa berhasil dihapus!');
+        return back();
     }
 }

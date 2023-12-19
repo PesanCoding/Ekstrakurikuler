@@ -4,11 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class EkskulDetail extends Model
+class Pendaftaran extends Model
 {
     use HasFactory;
-    protected $table = "detail_ekskuls";
+    protected $table = "pendaftarans";
     protected $guarded = [];
 }

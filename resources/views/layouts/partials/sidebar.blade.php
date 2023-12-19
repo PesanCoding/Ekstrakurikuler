@@ -39,6 +39,28 @@
                             data-i18n="Email">Ekskul</span></a>
                 </li>
             @endif
+            @if (auth()->user()->hasRole('pembina'))
+                <li class="nav-item {{ request()->is('absensi*') ? 'active' : '' }}">
+                    <a class="d-flex align-items-center" href="{{ route('pendaftaran.siswa') }}">
+                        <i data-feather='edit'></i><span class="menu-title text-truncate"
+                            data-i18n="Email">Pendaftaran</span></a>
+                </li>
+                <li class="nav-item {{ request()->is('absensi*') ? 'active' : '' }}">
+                    <a class="d-flex align-items-center" href="{{ route('absensi.index') }}">
+                        <i data-feather='users'></i><span class="menu-title text-truncate"
+                            data-i18n="Email">Anggota</span></a>
+                </li>
+                <li class="nav-item {{ request()->is('absensi*') ? 'active' : '' }}">
+                    <a class="d-flex align-items-center" href="{{ route('absensi.index') }}">
+                        <i data-feather='volume-2'></i><span class="menu-title text-truncate"
+                            data-i18n="Email">Pengumuman</span></a>
+                </li>
+                <li class="nav-item {{ request()->is('absensi*') ? 'active' : '' }}">
+                    <a class="d-flex align-items-center" href="{{ route('absensi.index') }}">
+                        <i data-feather='clipboard'></i><span class="menu-title text-truncate"
+                            data-i18n="Email">Absensi</span></a>
+                </li>
+            @endif
 
             @if (auth()->user()->hasRole('siswa'))
                 <li class="nav-item {{ request()->is('profil*') ? 'active' : '' }}">
@@ -51,11 +73,6 @@
                     <a class="d-flex align-items-center" href="{{ route('siswaekskul.index') }}">
                         <i data-feather='dribbble'></i><span class="menu-title text-truncate"
                             data-i18n="Email">Ekskul</span></a>
-                </li>
-                <li class="nav-item {{ request()->is('absensi*') ? 'active' : '' }}">
-                    <a class="d-flex align-items-center" href="{{ route('absensi.index') }}">
-                        <i data-feather='edit'></i><span class="menu-title text-truncate"
-                            data-i18n="Email">Absensi</span></a>
                 </li>
             @endif
         </ul>

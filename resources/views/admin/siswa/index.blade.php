@@ -33,10 +33,19 @@
                                         {{ $item->email }}
                                     </td>
                                     <td>
-                                        <a class="btn btn-sm btn-primary" href="{{ route('siswa.show', $item->id) }}">
-                                            <i data-feather='eye'></i> Detail Siswa
-                                        </a>
-                                        <button class=" btn btn-sm btn-danger"><i data-feather='trash'></i> Hapus</button>
+                                        <form onsubmit="return confirm('Apakah Anda yakin.?')"
+                                            action="{{ route('siswa.destroy', $item->id) }}" method="POST">
+                                            @csrf
+                                            @method('delete')
+                                            <a class="btn btn-sm btn-primary" href="{{ route('siswa.show', $item->id) }}">
+                                                <i data-feather='eye'></i>
+                                            </a>
+                                            <a class="btn btn-sm btn-warning" href="{{ route('siswa.edit', $item->id) }}">
+                                                <i data-feather='edit'></i>
+                                            </a>
+                                            <button type="submit" class="btn btn-sm btn-danger"><i
+                                                    data-feather='trash'></i></button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

@@ -11,7 +11,7 @@ class UpdateEkskulRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class UpdateEkskulRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nama_ekskul' => 'required',
+            'deskripsi' => 'required',
+            'gambar' => 'nullable|image:jpg,jpeg,png|max:2048',
+            'penanggung_jawab' => 'required',
+            'kuota' => 'required'
         ];
     }
 }

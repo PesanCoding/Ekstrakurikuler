@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreEkskulRequest extends FormRequest
+class JadwalUpdate extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +22,10 @@ class StoreEkskulRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nama_ekskul' => 'required|unique:ekskuls,nama_ekskul,' . $this->ekskul,
-            'deskripsi' => 'required',
-            'gambar' => 'required',
-            'penanggung_jawab' => 'required',
-            'kuota' => 'required'
+            'hari' => 'required',
+            'lokasi' => 'required',
+            'jam_mulai' => 'required',
+            'jam_selesai' => 'required'
         ];
     }
 }

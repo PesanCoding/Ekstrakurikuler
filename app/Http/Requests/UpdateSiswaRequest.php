@@ -11,7 +11,7 @@ class UpdateSiswaRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,14 @@ class UpdateSiswaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required',
+            'nisn' => 'required',
+            'kelas' => 'required',
+            'jenis_kelamin' => 'required',
+            'alamat' => 'required',
+            'nohp' => 'required',
+            'hobi' => 'required',
+            'photo_profile' => 'nullable|image:jpg,jpeg,png|max:2048'
         ];
     }
 }

@@ -12,13 +12,13 @@
                     <a href="{{ route('user.create') }}" class="btn btn-sm btn-primary"> Tambah Pembina</a>
                 </div>
                 <div class="card-body">
-                    <table class="table">
+                    <table class="table table-sm">
                         <thead>
                             <tr>
-                                <th>No</th>
+                                <th width="1%">No</th>
                                 <th>Nama</th>
-                                <th>Role</th>
                                 <th>Pembina</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -27,12 +27,16 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td>
-                                        <div class="badge badge-glow badge-warning">
-                                            Pembina
-                                        </div>
+                                        {{ $item->pembina['nama_ekskul'] }}
                                     </td>
                                     <td>
-                                        {{ $item->pembina['nama_ekskul'] }}
+                                        <form onsubmit="return confirm('Apakah anda yakin .?')"
+                                            action="{{ route('user.destroy', $item->id) }}" method="POST">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn btn-sm btn-danger"><i
+                                                    data-feather="trash"></i> Hapus</button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

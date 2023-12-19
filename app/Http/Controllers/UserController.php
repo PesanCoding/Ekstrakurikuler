@@ -69,8 +69,11 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        //
+        $data = User::findOrFail($id);
+        $data->delete();
+        toastr()->success('Data pembina berhasil dihapus!');
+        return back();
     }
 }

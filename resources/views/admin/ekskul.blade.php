@@ -32,9 +32,19 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a class="btn btn-sm btn-primary" href="{{ route('ekskul.show', $item->id) }}">
-                                            <i data-feather='eye'></i> Detail Jadwal
-                                        </a>
+                                        <form onsubmit="return confirm('Apakah Anda Yakin ?')"
+                                            action="{{ route('ekskul.destroy', $item->id) }}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <a class="btn btn-sm btn-primary" href="{{ route('ekskul.show', $item->id) }}">
+                                                <i data-feather='eye'></i> Detail Jadwal
+                                            </a>
+                                            <a href="{{ route('ekskul.edit', $item->id) }}"
+                                                class="btn btn-sm btn-warning"><i data-feather="edit"> </i>
+                                                Edit
+                                            </a>
+                                            <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

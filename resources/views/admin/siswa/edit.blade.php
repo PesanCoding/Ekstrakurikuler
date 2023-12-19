@@ -10,52 +10,33 @@
             Form siswa
         </div>
         <div class="card-body">
-            <form action="{{ route('siswa.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('siswa.update', $siswa->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="Nama">Nama</label>
-                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                                placeholder="Nama" aria-describedby="helpId" value="{{ old('name') }}">
+                            <input type="text" value="{{ $siswa->name }}" name="name"
+                                class="form-control @error('name') is-invalid @enderror" placeholder="Nama"
+                                aria-describedby="helpId" value="{{ old('name') }}">
                             @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group mt-1">
                             <label for="Nisn">NISN</label>
-                            <input type="text" name="nisn" id=""
+                            <input type="text" value="{{ $siswa->nisn }}" name="nisn" id=""
                                 class="form-control @error('nisn') is-invalid @enderror" placeholder="nisn"
-                                aria-describedby="helpId">
+                                aria-describedby="helpId" readonly>
                             @error('nisn')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="form-group mt-1">
-                            <label for="">Email</label>
-                            <input type="email" name="email" id=""
-                                class="form-control @error('email') is-invalid @enderror" placeholder="Email"
-                                aria-describedby="helpId" value="{{ old('email') }}">
-                            @error('email')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group mt-1">
-                            <label for="Ektrakurikuler">Password</label>
-                            <input type="password" name="password" id=""
-                                class="form-control @error('password') is-invalid @enderror" placeholder="Password"
-                                aria-describedby="helpId">
-                            @error('password')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="kelas">Kelas</label>
                             <select name="kelas" id="" class="form-control @error('kelas') is-invalid @enderror">
-                                <option value="">--Pilih Kelas--</option>
+                                <option value="{{ $siswa->kelas }}">{{ $siswa->kelas }}</option>
                                 <option value="X">X (Sepuluh)</option>
                                 <option value="XI">XI (Sebelas)</option>
                                 <option value="XII">XII (Duabelas)</option>
@@ -68,7 +49,7 @@
                             <label for="jenis_kelamin">Jenis Kelamin</label>
                             <select name="jenis_kelamin" id=""
                                 class="form-control @error('jenis_kelamin') is-invalid @enderror">
-                                <option value="">--Jenis Kelamin--</option>
+                                <option value="{{ $siswa->jenis_kelamin }}">{{ $siswa->jenis_kelamin }}</option>
                                 <option value="laki-laki">Laki-laki</option>
                                 <option value="perempuan">Perempuan</option>
                             </select>
@@ -76,9 +57,11 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="form-group mt-1">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <label for="nohp">No Telepon</label>
-                            <input type="text" name="nohp" id=""
+                            <input type="text" name="nohp" value="{{ $siswa->nohp }}"
                                 class="form-control @error('nohp') is-invalid @enderror" placeholder="Nomor Telepon"
                                 aria-describedby="helpId">
                             @error('nohp')
@@ -87,18 +70,14 @@
                         </div>
                         <div class="form-group mt-1">
                             <label for="hobi">Hobi</label>
-                            <input type="text" name="hobi" id=""
+                            <input type="text" name="hobi" value=" {{ $siswa->hobi }}"
                                 class="form-control @error('hobi') is-invalid @enderror" placeholder="Hobi"
                                 aria-describedby="helpId">
                             @error('hobi')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="form-group">
+                        <div class="form-group mt-1">
                             <label for="customFile">Photo</label>
                             <div class="custom-file">
                                 <input type="file" name="photo_profile"
@@ -116,14 +95,14 @@
                     <div class="col-md-12">
                         <textarea name="alamat" id="" cols="30" rows="2"
                             class="form-control @error('alamat') is-invalid @enderror">
-                            {{ old('alamat') }}
+                            {{ $siswa->alamat }}
                         </textarea>
                         @error('alamat')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
-                <button class="btn  btn-primary mt-1" type="submit">Simpan</button>
+                <button class="btn  btn-warning mt-1" type="submit">Update</button>
             </form>
         </div>
     </div>

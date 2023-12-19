@@ -31,6 +31,7 @@ class StoreSiswaRequest extends FormRequest
             'alamat' => 'required',
             'nohp' => 'required|unique:users,nohp',
             'hobi' => 'required',
+            'photo_profile' => 'nullable|image:jpg,jpeg,png|max:2048'
         ];
     }
 }

@@ -53,6 +53,9 @@ class User extends Authenticatable
      */
     public function pembina()
     {
-        return $this->hasOne(Ekskul::class, 'penanggung_jawab', 'id');
+        return $this->hasOne(Ekskul::class, 'penanggung_jawab', 'id')
+            ->withDefault(
+                ['nama_ekskul' => 'Belum ditentukan']
+            );
     }
 }

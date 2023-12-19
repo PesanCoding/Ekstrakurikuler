@@ -9,14 +9,15 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    Form Ektrakurikuler
+                    Form Edit Ektrakurikuler
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('ekskul.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('ekskul.update', $data->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
                         <div class="form-group">
                             <label for="Ektrakurikuler">Ektrakurikuler</label>
-                            <input type="text" name="nama_ekskul" id=""
+                            <input type="text" name="nama_ekskul" value="{{ old('nama_ekskul', $data->nama_ekskul) }}"
                                 class="form-control @error('nama_ekskul') is-invalid @enderror"
                                 placeholder="Nama Ekstrakulikuler" aria-describedby="helpId">
                             @error('nama_ekskul')
@@ -27,7 +28,7 @@
                             <label for="Ektrakurikuler">Penanggung Jawab</label>
                             <select name="penanggung_jawab" id="penanggung_jawab"
                                 class="form-control @error('penanggung_jawab') is-invalid @enderror">
-                                <option value="">--Pilih Pembina--</option>
+                                <option value="{{ $data->penanggung_jawab }}">{{ $data->user->name }}</option>
                                 @foreach ($usersWithRole as $item)
                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach
@@ -38,7 +39,7 @@
                         </div>
                         <div class="form-group">
                             <label for="Ektrakurikuler">Kuota</label>
-                            <input type="number" name="kuota" id=""
+                            <input type="number" name="kuota" id="" value="{{ $data->kuota }}"
                                 class="form-control @error('kuota') is-invalid @enderror" placeholder="Kuota"
                                 aria-describedby="helpId">
                             @error('kuota')
@@ -58,7 +59,9 @@
                         </div>
                         <div class="form-group">
                             <label for="Ektrakurikuler">Deskripsi</label>
-                            <textarea name="deskripsi" class="form-control  @error('deskripsi') is-invalid @enderror" cols="30" rows="4"></textarea>
+                            <textarea name="deskripsi" class="form-control  @error('deskripsi') is-invalid @enderror" cols="30" rows="4">
+                            {{ $data->deskripsi }}
+                            </textarea>
                             @error('dskripsi')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

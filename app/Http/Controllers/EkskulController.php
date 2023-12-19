@@ -7,6 +7,7 @@ use App\Http\Requests\StoreEkskulRequest;
 use App\Http\Requests\UpdateEkskulRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Role;
 
 class EkskulController extends Controller
@@ -36,18 +37,12 @@ class EkskulController extends Controller
      */
     public function store(StoreEkskulRequest $request)
     {
-        $dataEkskul = Ekskul::insertGetId([
-            'nama_ekskul' => $request->nama_ekskul,
-            'penanggung_jawab' => $request->penanggung_jawab,
-        ]);
-        $dataJadwal = [
-            'id_ekskul' => $dataEkskul,
-            'lokasi'    => $request->lokasi,
-            'hari'      => $request->hari,
-            'jam_mulai' => $request->jam_mulai,
-            'jam_selesai' => $request->jam_selesai
-        ];
-        DB::table('detail_ekskuls')->insert($dataJadwal);
+        $data = $request->all();
+        if ($request->hasFile('gambar')) {
+            $data['gambar'] = $request->file('gambar')->store('public/banner_ekskul');
+        }
+        $ekskul = Ekskul::create($data);
+        toastr()->info('Data Ekskul berhasil ditambahkan!');
         return redirect()->route('ekskul.index');
     }
 
@@ -63,24 +58,41 @@ class EkskulController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Ekskul $ekskul)
+    public function edit($id)
     {
-        //
+        $usersWithRole = User::role('pembina')->get();
+        $data = Ekskul::findOrFail($id);
+        return view('admin.edit_ekskul', compact('data', 'usersWithRole'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateEkskulRequest $request, Ekskul $ekskul)
+    public function update(UpdateEkskulRequest $request, $id)
     {
-        //
+        $data = $request->all();
+        $model = Ekskul::findOrFail($id);
+        if ($request->hasFile('gambar')) {
+            if ($model->gambar != null && Storage::exists($model->gambar)) {
+                Storage::delete($model->gambar);
+            }
+            $data['gambar'] = $request->file('gambar')->store('public/banner_ekskul');
+        }
+        $model->fill($data);
+        $model->update();
+        toastr()->info('Data Ekskul berhasil diubah!');
+        return redirect()->route('ekskul.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Ekskul $ekskul)
+    public function destroy($id)
     {
-        //
+        $data = Ekskul::findOrFail($id);
+        Storage::delete($data->gambar);
+        $data->delete();
+        toastr()->success('Data Ekskul berhasil dihapus!');
+        return back();
     }
 }

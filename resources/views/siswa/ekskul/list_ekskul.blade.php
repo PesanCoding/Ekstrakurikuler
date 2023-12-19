@@ -16,7 +16,7 @@
                                 <div class="d-flex align-items-center">
                                     <div class="d-flex align-items-center">
                                         <span class="bullet bullet-warning font-small-3 mr-50 cursor-pointer"></span>
-                                        <span>Kuota : 60</span>
+                                        <span>Kuota : {{ $item->kuota }}</span>
                                     </div>
                                     <span></span>
                                 </div>
@@ -26,16 +26,19 @@
                             </div>
                             <div class="align-items-center">
                                 <center>
-                                    <img src="{{ asset('template/app-assets/images/slider/09.jpg') }}" width="300px"
-                                        alt="">
+                                    @if ($item->gambar == null)
+                                        <img src="{{ asset('template/app-assets/images/slider/09.jpg') }}" width="300px"
+                                            alt="">
+                                    @else
+                                        <img src="{{ \Storage::url($item->gambar) }}" width="300px" alt="">
+                                    @endif
                                 </center>
                             </div>
 
                             <h5 class="mt-1">Deskripsi</h5>
-                            <p style="text-align: justify">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error
-                                aut ipsam corrupti distinctio
-                                modi at facere repellat tempora repudiandae, nemo quaerat amet, harum, consequatur provident
-                                impedit! Harum consectetur corporis nesciunt!</p>
+                            <p style="text-align: justify">
+                                {{ $item->deskripsi }}
+                            </p>
                         </div>
                         <div class="col-md-4 col-12">
                             <div class="d-flex justify-content-center mt-2">
@@ -50,8 +53,7 @@
                                 </ul>
                             @endforeach
                             <div class="d-flex justify-content-center mt-2 mb-2">
-                                <button data-id="{{ $item->id }}" id="daftar-ekskul"
-                                    class="btn btn-primary">Daftar</button>
+                                <a href="{{ route('pendaftran.show', $item->id) }}"> Daftar</a>
                             </div>
                         </div>
                     </div>
@@ -59,56 +61,4 @@
             </div>
         </div>
     @endforeach
-    <!-- Modal -->
-    <div class="modal fade text-left" id="modal-daftar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel1">Form Pendaftaran</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="">Nama Siswa</label>
-                        <input type="text" name="id_siswa" value="{{ auth()->user()->name }}" class="form-control"
-                            placeholder="" aria-describedby="helpId">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Nama Ekskul</label>
-                        <input type="text" name="" id="nama_ekskul"class="form-control" readonly placeholder=""
-                            aria-describedby="helpId">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Alasan</label>
-                        <textarea name="alasan" id="" class="form-control" cols="30" rows="4"></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Accept</button>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
-@push('script')
-    <script>
-        $('body').on('click', '#daftar-ekskul', function() {
-            let = data_id = $(this).data('id');
-
-
-            $.ajax({
-                type: "GET",
-                url: `/pendaftaran/${data_id}`,
-                cache: false,
-                success: function(response) {
-                    console.log(response.data);
-                    $('#nama_ekskul').val(response.data.nama_ekskul);
-                    $('#modal-daftar').modal('show');
-                }
-            });
-        })
-    </script>
-@endpush

@@ -12,12 +12,13 @@
                     <h4>Jadwal Ektrakurikuler - {{ $data->nama_ekskul }}</h4>
                 </div>
                 <div class="card-body">
-                    <a href="" class="btn btn-sm btn-primary">Tambah Jadwal</a>
+                    <a href="{{ route('jadwal.show', $data->id) }}" class="btn btn-sm btn-primary">Tambah
+                        Jadwal</a>
 
-                    <table class="table mt-2">
+                    <table class="table table-sm mt-2">
                         <thead>
                             <tr>
-                                <th>No</th>
+                                <th width="1%">No</th>
                                 <th>Hari</th>
                                 <th>Lokasi</th>
                                 <th>Jam Mulai</th>
@@ -34,8 +35,14 @@
                                     <td>{{ $item->jam_mulai }}</td>
                                     <td>{{ $item->jam_selesai }}</td>
                                     <td>
-                                        <a href="" class="btn btn-sm btn-warning">Edit</a>
-                                        <a href="" class="btn btn-sm btn-danger">Hapus</a>
+                                        <form onsubmit="return confirm('Apakah Anda Yakin ?')"
+                                            action="{{ route('jadwal.destroy', $item->id) }}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <a href="{{ route('jadwal.edit', $item->id) }}"
+                                                class="btn btn-sm btn-warning">Edit</a>
+                                            <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
