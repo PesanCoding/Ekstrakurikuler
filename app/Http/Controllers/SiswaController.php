@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\SiswaDataTable;
 use App\Models\Siswa;
 use App\Http\Requests\StoreSiswaRequest;
 use App\Http\Requests\UpdateSiswaRequest;
+use App\Models\Pendaftaran;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\Datatables;
 
 class SiswaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(SiswaDataTable $dataTable)
     {
-        $siswa = User::role('siswa')
-            ->get();
-        return view('admin.siswa.index', compact(
-            'siswa'
-        ));
+        return $dataTable->render('admin.siswa.index');
     }
 
     /**
@@ -50,21 +50,16 @@ class SiswaController extends Controller
     public function show($id)
     {
         $siswa = User::findOrFail($id);
-        return view('admin.siswa.show', compact('siswa'));
+        $ekskul = Pendaftaran::ekskulSetujuByIdSiswa($id)->get();
+        return view('admin.siswa.show', compact('siswa', 'ekskul'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($id)
     {
         $siswa = User::findOrFail($id);
         return view('admin.siswa.edit', compact('siswa'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateSiswaRequest $request, $id)
     {
         $data = $request->all();

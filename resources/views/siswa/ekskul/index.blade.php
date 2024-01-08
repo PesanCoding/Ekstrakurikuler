@@ -1,3 +1,13 @@
+@push('css')
+    <style>
+        .card-img-cover {
+            width: 284px;
+            height: 190px;
+            object-fit: cover;
+            margin: 0 auto;
+        }
+    </style>
+@endpush
 @extends('layouts.app')
 @section('title', 'Ekskul')
 @section('breadcrumb')
@@ -27,18 +37,19 @@
                         @foreach ($data as $item)
                             <div class="col-md-6 col-xl-4">
                                 <div class="card border-0 text-white">
-                                    <img class="card-img" src="{{ asset('template/app-assets/images/slider/10.jpg') }}"
+                                    <img class="card-img-cover" src="{{ \Storage::url($item->ekskul->gambar) }}"
                                         alt="Card image" />
                                     <div class="card-img-overlay bg-overlay">
-                                        <h4 class="card-title text-white">Card title</h4>
+                                        <h4 class="card-title text-white">{{ $item->ekskul->nama_ekskul }}</h4>
                                         <p class="card-text">
                                             This is a wider card with supporting text below as a natural lead-in to
                                             additional
-                                            content. This content is
-                                            a little bit longer.
                                         </p>
-                                        <p class="card-text">
-                                            <small class="text-muted">Last updated 3 mins ago</small>
+                                        <p class="card-text mt-2">
+                                            <small class="text-muted">
+                                                <a href="{{ route('siswaekskul.show', $item->ekskul->id) }}"
+                                                    class="btn btn-success btn-rounded ">Detail Jadwal</a>
+                                            </small>
                                         </p>
                                     </div>
                                 </div>

@@ -58,10 +58,20 @@
                     <h4>Kegiatan yang diikuti</h4>
                     <div class="col-md-12">
                         <table class="table table-sm">
-                            <tr>
-                                <th width="1%">No</th>
-                                <th>Nama Kegiatan</th>
-                            </tr>
+                            <thead>
+                                <tr>
+                                    <th width="1%">No</th>
+                                    <th>Nama Kegiatan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($ekskul as $itemEkskul)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $itemEkskul->ekskul->nama_ekskul }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
                         </table>
                     </div>
 

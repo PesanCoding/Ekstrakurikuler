@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Siswa;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,10 +14,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Siswa::factory(80)->create();
         $this->call([
-            PermissionSeeder::class,
-            RoleSeeder::class,
-            UserSeeder::class,
+            // PermissionSeeder::class,
+            // RoleSeeder::class,
+            PendaftaranSeeder::class,
         ]);
     }
 }

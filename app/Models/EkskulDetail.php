@@ -11,4 +11,9 @@ class EkskulDetail extends Model
     use HasFactory;
     protected $table = "detail_ekskuls";
     protected $guarded = [];
+
+    public function scopeJadwal($query, $ekskulId)
+    {
+        return $query->where('id_ekskul', $ekskulId);
+    }
 }

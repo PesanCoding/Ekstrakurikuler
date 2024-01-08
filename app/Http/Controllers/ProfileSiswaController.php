@@ -12,14 +12,15 @@ class ProfileSiswaController extends Controller
     public function show($id)
     {
         $data = User::findOrFail($id);
-        return view('siswa.show_profile', compact('data'));
+        return view('siswa.profile.show_profile', compact('data'));
     }
     public function edit(User $user)
     {
-        //
+        $data = User::findOrFail(auth()->user()->id);
+        return view('siswa.profile.edit', compact('data'));
     }
     public function update(UpdateProfileSiswaRequest $request, ProfileSiswa $profileSiswa)
     {
-        //
+        dd($request->all());
     }
 }

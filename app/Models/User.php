@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -45,17 +46,31 @@ class User extends Authenticatable
     {
         return $this->hasMany(Siswa::class, 'id_user', 'id');
     }
-
-    /**
-     * Get all of the pembina for the User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function pembina()
     {
         return $this->hasOne(Ekskul::class, 'penanggung_jawab', 'id')
             ->withDefault(
                 ['nama_ekskul' => 'Belum ditentukan']
             );
+    }
+    public function scopePembinaData($query)
+    {
+        return $query->where('id', auth()->user()->id)
+            ->role('pembina')
+            ->with('pembina')
+            ->get();
+    }
+    public function scopeSiswaData($query)
+    {
+        return $query->role('siswa')->orderBy('name', 'asc');
+    }
+
+    public function scopeDeletePhotoProfile($query, $path)
+    {
+        if ($path != null && Storage::exists($path)) {
+            Storage::delete($path);
+        }
+
+        return $query;
     }
 }

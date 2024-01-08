@@ -21,6 +21,10 @@
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('template/app-assets/vendors/css/vendors.min.css') }}" />
     @stack('css_vendor')
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('template') }}/app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('template') }}/app-assets/vendors/css/tables/datatable/responsive.bootstrap4.min.css">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -101,6 +105,10 @@
 
         <!-- BEGIN: Page Vendor JS-->
         @stack('script_vendor')
+        <script src="{{ asset('template') }}/app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js"></script>
+
+        <script src="{{ asset('template') }}/app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js"></script>
+        <script src="{{ asset('template') }}/app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js"></script>
         <!-- END: Page Vendor JS-->
 
         <!-- BEGIN: Theme JS-->
